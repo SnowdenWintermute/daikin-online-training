@@ -1,0 +1,8 @@
+display questions
+hold correct answers
+if all answers are correct, enable button
+load answers from redux
+save answers to redux
+
+redux saves to local storage
+redux loads from local storage on quit

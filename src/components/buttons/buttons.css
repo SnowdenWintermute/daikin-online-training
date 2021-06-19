@@ -1,0 +1,28 @@
+.button {
+  height: 40px;
+  min-width: 100px;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+.button:disabled {
+  cursor: initial;
+  border: 1px solid grey;
+  color: grey;
+}
+.button:hover {
+  background: white;
+  color: black;
+}
+.button:disabled:hover {
+  background: transparent;
+  color: grey;
+}
+.next-button {
+  width: 45%;
+}
+.prev-button {
+  width: 45%;
+}
