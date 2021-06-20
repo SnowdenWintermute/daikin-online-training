@@ -1,6 +1,6 @@
 .info-window {
   padding: 15px;
   height: 100%;
-  background-color: #50607a;
+  /* background-color: #50607a; */
   overflow-y: scroll;
 }

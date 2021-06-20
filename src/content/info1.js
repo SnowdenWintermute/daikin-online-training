@@ -7,6 +7,8 @@ const page1 = [
   {
     type: IMAGE,
     uri: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Chiller.jpg/1024px-Chiller.jpg",
+    title: "Chiller",
+    caption: "Don't fuck with a big chiller",
   },
   {
     type: TEXT,

@@ -2,9 +2,8 @@
   height: 40px;
   min-width: 100px;
   background: transparent;
-  border: 1px solid white;
-  color: white;
-  font-size: 20px;
+  border: 1px solid var(--blue);
+  color: var(--blue);
   cursor: pointer;
 }
 .button:disabled {
@@ -22,7 +21,20 @@
 }
 .next-button {
   width: 45%;
+  font-size: 20px;
 }
 .prev-button {
   width: 45%;
+  font-size: 20px;
+}
+.button-small-text {
+  font-size: 16px;
+}
+.button-danger {
+  color: red;
+  border: 1px solid red;
+}
+.button-danger:hover {
+  background: red;
+  color: white;
 }

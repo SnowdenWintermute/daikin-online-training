@@ -1,7 +1,11 @@
+:root {
+  --green: #84bd00;
+  --blue: #4182cb;
+  --dark: #222;
+}
 * {
   box-sizing: border-box;
   padding: 0px;
   margin: 0px;
-  color: lightblue;
   font-family: Arial, Helvetica, sans-serif;
 }

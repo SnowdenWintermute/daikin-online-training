@@ -1,0 +1,30 @@
+.bottom-bar {
+  width: 100vw;
+  height: 60px;
+  /* border-top: 3px solid white; */
+  /* background-color: var(--green); */
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 15px;
+  position: relative;
+}
+.progress-holder {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.bottom-bar-back-button {
+  text-decoration: none;
+  color: var(--blue);
+  padding: 10px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  border: 1px solid var(--blue);
+}

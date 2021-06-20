@@ -1,0 +1,18 @@
+.image-card {
+  width: 100%;
+  height: 400px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.image-card img {
+  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+.image-card-caption {
+  border: 2px solid var(--blue);
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}

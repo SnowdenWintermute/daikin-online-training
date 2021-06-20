@@ -6,13 +6,13 @@ import { setAnswerToQuestion } from "../../../store/actions/quiz";
 
 const MultipleChoice = ({ question, id }) => {
   const dispatch = useDispatch();
-  const [isCorrect, setIsCorrect] = useState(false);
   const quiz = useSelector((state) => state.quiz);
-
-  useEffect(() => {
-    if (quiz[id]?.index === question.correctAnswerIndex) setIsCorrect(true);
-    else setIsCorrect(false);
-  }, [quiz, id, question.correctAnswerIndex]);
+  const lesson = useSelector((state) => state.lessons.currentLesson);
+  const isCorrect = useSelector((state) =>
+    state.quiz && state.quiz[lesson] && state.quiz[lesson].answers
+      ? state.quiz[lesson]?.answers[id]?.isCorrect
+      : false
+  );
 
   const handleChange = (event) => {
     let newSelectedIndex;
@@ -20,19 +20,30 @@ const MultipleChoice = ({ question, id }) => {
       if (answer.value === event.target.value) newSelectedIndex = i;
     });
     dispatch(
-      setAnswerToQuestion({ id, currSelectedIndex: newSelectedIndex, value: event.target.value })
+      setAnswerToQuestion({
+        lesson,
+        id,
+        currSelectedIndex: newSelectedIndex,
+        value: event.target.value,
+        correctAnswerIndex: question.correctAnswerIndex,
+        page: question.page,
+      })
     );
   };
 
   return (
-    <div>
-      <h2 className={isCorrect ? "correct-answer" : ""}>{question.questionText}</h2>
+    <div className="question-box">
+      <h2 className={isCorrect ? "correct-answer" : ""}>
+        {question.questionText} {question.id}
+      </h2>
       <FormControl component="fieldset">
         {/* <FormLabel component="legend">Answer</FormLabel> */}
         <RadioGroup
           aria-label="gender"
           name="Answer"
-          value={quiz[id]?.value || null}
+          value={
+            quiz[lesson] && quiz[lesson].answers ? quiz[lesson].answers[id]?.value || null : null
+          }
           onChange={handleChange}
         >
           {question.answers.map((answer, i) => {
@@ -40,10 +51,12 @@ const MultipleChoice = ({ question, id }) => {
               <FormControlLabel
                 value={answer.value}
                 key={i}
-                control={<Radio />}
+                control={<Radio color="default" />}
                 label={answer.label}
                 className={
-                  isCorrect && i === question.correctAnswerIndex ? "selected-correct-answer" : ""
+                  isCorrect && i === question.correctAnswerIndex
+                    ? "selected-correct-answer"
+                    : "radio-label"
                 }
               />
             );

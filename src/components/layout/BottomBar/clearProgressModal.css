@@ -1,0 +1,12 @@
+.clear-progress-modal-content {
+  padding: 20px;
+  background-color: white;
+}
+.clear-progress-modal-content h2 {
+  margin-bottom: 10px;
+}
+.button-holder {
+  width: 210px;
+  display: flex;
+  justify-content: space-between;
+}

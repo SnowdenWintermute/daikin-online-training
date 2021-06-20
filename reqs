@@ -1,0 +1,8 @@
+-save prog
+-sub categories
+-enter name beginning test
+-test show wrong answer
+-70% is passing
+-retake test or claim cert button based on pass/fail
+-email brian upon cert claim
+-full screen images on right side
