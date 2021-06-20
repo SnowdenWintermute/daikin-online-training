@@ -1,4 +1,4 @@
-import { TEXT, IMAGE, VIDEO } from "./types";
+import { TEXT, IMAGE } from "./types";
 const page1 = [
   {
     type: TEXT,

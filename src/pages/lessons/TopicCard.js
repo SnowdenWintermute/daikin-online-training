@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./lessons.css";
 
-const LessonCard = ({ title, img }) => {
+const TopicCard = ({ title, img }) => {
   return (
-    <Link className="lesson-card-link" to={`/quiz/${title.toLowerCase()}`}>
+    <Link className="lesson-card-link" to={`/lessons/${title.toLowerCase()}`}>
       <div className="lesson-card">
-        {/* <h3>Lesson</h3> */}
+        {/* <h3>Topic</h3> */}
         <h2 className="lesson-card-title">{title}</h2>
         {img ? <img src={img} alt={title} /> : null}
       </div>
@@ -14,4 +14,4 @@ const LessonCard = ({ title, img }) => {
   );
 };
 
-export default LessonCard;
+export default TopicCard;

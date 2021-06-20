@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./multipleChoice.css";
 import { FormControl, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";

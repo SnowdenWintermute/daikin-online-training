@@ -1,6 +1,13 @@
-.lessons-holder {
-  padding: 15px;
+.lessons,
+.topics {
   width: 100vw;
+  padding: 20px;
+}
+.lessons-header {
+  margin-bottom: 20px;
+}
+.lessons-holder,
+.topics-holder {
   display: flex;
   flex-wrap: wrap;
 }
@@ -19,6 +26,7 @@
   border: 3px solid var(--blue);
   font-size: 20px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: 0.3s;

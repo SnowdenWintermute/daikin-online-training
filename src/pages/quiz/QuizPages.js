@@ -11,6 +11,7 @@ const QuizPages = ({ pages }) => {
   const [loading, setLoading] = useState(true);
 
   const loadQuizPages = useCallback(() => {
+    if (!lesson) return;
     let numTotalPages = 0;
     let questionIdsByPage = {};
     let j = 0;

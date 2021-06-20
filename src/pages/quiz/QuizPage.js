@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import MultipleChoice from "../../components/questions/MultipleChoice/MultipleChoice";
 import NextButton from "../../components/buttons/NextButton";
 import PrevButton from "../../components/buttons/PrevButton";
@@ -10,6 +11,7 @@ import TextBox from "../../components/text/TextBox";
 
 const QuizPage = ({ content }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const lesson = useSelector((state) => state.lessons?.currentLesson);
   const currentPage = useSelector((state) => state.quiz[lesson]?.pageNumber);
   const numTotalPages = useSelector((state) => state.quiz[lesson]?.numTotalPages);
@@ -19,8 +21,9 @@ const QuizPage = ({ content }) => {
   });
 
   const handleNextClick = () => {
-    if (currentPage < numTotalPages)
+    if (currentPage < numTotalPages) {
       dispatch(setPageNumber({ currPageNum: currentPage + 1, lesson }));
+    } else if (currentPage === numTotalPages) history.push(`/test/${lesson}`);
   };
   const handlePrevClick = () => {
     if (currentPage > 1) dispatch(setPageNumber({ currPageNum: currentPage - 1, lesson }));
@@ -28,6 +31,9 @@ const QuizPage = ({ content }) => {
 
   return (
     <div>
+      <h2>
+        {lesson} page {currentPage}
+      </h2>
       {content.map((item) => {
         if (item.type === QUESTION) {
           return <MultipleChoice question={item} id={item.id} key={item.id} />;
