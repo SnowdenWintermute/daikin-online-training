@@ -31,8 +31,9 @@ const QuizPage = ({ content }) => {
 
   return (
     <div>
-      <h2>
-        {lesson} page {currentPage}
+      <h2 className="quiz-page-header-text">
+        <span className="quiz-page-lesson-name">{lesson}</span> page {currentPage} of{" "}
+        {numTotalPages}
       </h2>
       {content.map((item) => {
         if (item.type === QUESTION) {

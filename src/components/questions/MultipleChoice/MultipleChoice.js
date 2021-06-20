@@ -34,7 +34,7 @@ const MultipleChoice = ({ question, id }) => {
   return (
     <div className="question-box">
       <h2 className={isCorrect ? "correct-answer" : ""}>
-        {question.questionText} {question.id}
+        {question.id}. {question.questionText}
       </h2>
       <FormControl component="fieldset">
         {/* <FormLabel component="legend">Answer</FormLabel> */}

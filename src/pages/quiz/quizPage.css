@@ -3,3 +3,11 @@
   justify-content: space-between;
   margin-top: 30px;
 }
+.quiz-page-header {
+}
+.quiz-page-header-text {
+  margin-bottom: 20px;
+}
+.quiz-page-lesson-name {
+  text-transform: capitalize;
+}

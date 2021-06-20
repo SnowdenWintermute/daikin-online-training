@@ -1,20 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
 const Test = ({ match }) => {
+  const history = useHistory();
   const lesson = match.params.lesson;
   const quiz = useSelector((state) => state.quiz[lesson]);
   const quizIsComplete = useSelector((state) => state.quiz[lesson]?.isComplete);
 
   useEffect(() => {
-    if (!quiz) {
-      console.log("no quiz data");
-    }
-    if (!quiz.isComplete) {
-      console.log("not all answers correct for quiz");
-    }
-    console.log(quizIsComplete);
-  });
+    if (!quiz || !quiz.isComplete) history.push(`/lessons/${lesson}`);
+  }, [history, lesson, quiz]);
 
   return (
     <div>

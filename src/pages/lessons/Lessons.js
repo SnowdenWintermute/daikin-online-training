@@ -21,10 +21,14 @@ const Lessons = ({ match, history }) => {
       {lessons.length < 1 ? (
         "No lessons found in this topic"
       ) : (
-        <h2 className={"lessons-header"}>
-          <button onClick={() => history.goBack()}>Go Back</button> Lessons about{" "}
-          {topic[0].toUpperCase() + topic.substring(1)}
-        </h2>
+        <div className={"lessons-header"}>
+          <button className="button lessons-header-button" onClick={() => history.goBack()}>
+            Go Back
+          </button>{" "}
+          <h2 className="lessons-header-text">
+            Lessons about {topic[0].toUpperCase() + topic.substring(1)}
+          </h2>
+        </div>
       )}
       <div className="lessons-holder">
         {lessons.map((lesson, i) => (

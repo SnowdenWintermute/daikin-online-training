@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./bottomBar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -24,35 +24,50 @@ const BottomBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const lesson = useSelector((state) => state.lessons.currentLesson);
   const quiz = useSelector((state) => state.quiz[lesson]);
-  const percentComplete = Math.round(((quiz?.pageNumber - 1) / quiz?.numTotalPages) * 100) || 0;
+  // const percentComplete = Math.round(((quiz?.pageNumber - 1) / quiz?.numTotalPages) * 100) || 0;
+  const [totalNumQuestions, setTotalNumQuestions] = useState(null);
+  const percentComplete =
+    Math.round(((quiz?.numQuestionsCorrect || 0) / totalNumQuestions) * 100) || 0;
+
+  useEffect(() => {
+    let newTotal = 0;
+    if (!quiz) return;
+    Object.keys(quiz.questionIdsByPage).forEach((key) => {
+      quiz.questionIdsByPage[key].forEach((question) => (newTotal += 1));
+    });
+    setTotalNumQuestions(newTotal);
+  }, [quiz, lesson]);
+
   const handleClearProgress = () => {
-    console.log(lesson);
     dispatch(clearProgress(lesson));
     setModalOpen(false);
   };
   return (
-    <div className="bottom-bar">
-      <Link className="bottom-bar-back-button" to="/">
-        Other Lessons
-      </Link>
-      <div className="progress-holder">
-        <LinearProgress
-          value={percentComplete}
-          className={classes.progress}
-          // style={{ width: "100%" }}
-          variant="determinate"
-        />
-        <div className="progress-text">
-          Page {quiz?.pageNumber} / {quiz?.numTotalPages || 0} ({percentComplete}%)
+    <>
+      <div className="bottom-bar">
+        <Link className="bottom-bar-back-button" to="/">
+          Other Lessons
+        </Link>
+        <div className="progress-holder">
+          <LinearProgress
+            value={percentComplete}
+            className={classes.progress}
+            variant="determinate"
+          />
+          <div className="progress-text">
+            {quiz?.numQuestionsCorrect || 0} / {totalNumQuestions} Questions Correct (
+            {percentComplete}%)
+            {/* {quiz?.pageNumber} / {quiz?.numTotalPages || 0} ({percentComplete}%) */}
+          </div>
         </div>
+        <DangerButton onClick={() => setModalOpen(true)} text="Clear Progress" />
       </div>
-      <DangerButton onClick={() => setModalOpen(true)} text="Clear Progress" />
       <ClearProgressModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         handleClearProgress={handleClearProgress}
       />
-    </div>
+    </>
   );
 };
 

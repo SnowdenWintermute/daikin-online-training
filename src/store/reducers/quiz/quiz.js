@@ -6,6 +6,7 @@ import {
 import { SET_PAGE_NUMBER } from "../../actions/types";
 import { SET_TOTAL_NUM_PAGES } from "../../actions/types";
 import checkAnswer from "./checkAnswer";
+import setNumQuestionsCorrect from "./setNumQuestionsCorrect";
 import setPageCompletion from "./setPageCompletion";
 import setQuizCompletion from "./setQuizCompletion";
 
@@ -22,6 +23,7 @@ export default function (state = initialState, action) {
       checkAnswer(newState, payload);
       setPageCompletion(newState, payload);
       setQuizCompletion(newState, payload);
+      setNumQuestionsCorrect(newState, payload);
       localStorage.setItem("quiz", JSON.stringify(newState));
       return { ...newState };
     case CLEAR_PROGRESS:
