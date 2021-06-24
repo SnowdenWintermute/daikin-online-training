@@ -1,39 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "./multipleChoice.css";
 import { FormControl, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
-import { setAnswerToQuestion } from "../../../store/actions/quiz";
 
-const MultipleChoice = ({ question, id }) => {
-  const dispatch = useDispatch();
-  const quiz = useSelector((state) => state.quiz);
-  const lesson = useSelector((state) => state.lessons.currentLesson);
-  const isCorrect = useSelector((state) =>
-    state.quiz && state.quiz[lesson] && state.quiz[lesson].answers
-      ? state.quiz[lesson]?.answers[id]?.isCorrect
-      : false
-  );
-
-  const handleChange = (event) => {
-    let newSelectedIndex;
-    question.answers.forEach((answer, i) => {
-      if (answer.value === event.target.value) newSelectedIndex = i;
-    });
-    dispatch(
-      setAnswerToQuestion({
-        lesson,
-        id,
-        currSelectedIndex: newSelectedIndex,
-        value: event.target.value,
-        correctAnswerIndex: question.correctAnswerIndex,
-        page: question.page,
-      })
-    );
-  };
-
+const MultipleChoice = ({ question, id, value, showCorrect, handleChange }) => {
   return (
     <div className="question-box">
-      <h2 className={isCorrect ? "correct-answer" : ""}>
+      <h2 className={showCorrect ? "correct-answer" : ""}>
         {question.id}. {question.questionText}
       </h2>
       <FormControl component="fieldset">
@@ -41,10 +13,8 @@ const MultipleChoice = ({ question, id }) => {
         <RadioGroup
           aria-label="gender"
           name="Answer"
-          value={
-            quiz[lesson] && quiz[lesson].answers ? quiz[lesson].answers[id]?.value || null : null
-          }
-          onChange={handleChange}
+          value={value}
+          onChange={(event) => handleChange(event, question, id)}
         >
           {question.answers.map((answer, i) => {
             return (
@@ -52,9 +22,9 @@ const MultipleChoice = ({ question, id }) => {
                 value={answer.value}
                 key={i}
                 control={<Radio color="default" />}
-                label={answer.label}
+                label={answer.value}
                 className={
-                  isCorrect && i === question.correctAnswerIndex
+                  showCorrect && i === question.correctAnswerIndex
                     ? "selected-correct-answer"
                     : "radio-label"
                 }

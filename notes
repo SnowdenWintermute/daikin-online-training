@@ -1,0 +1,56 @@
+Lesson Category Selector
+    Header
+    Category Card
+Lesson Selector
+    Header
+        Back Button
+    Lesson Card
+        - Number of questions
+        - Percent complete
+        - Test complete status
+        - Clear progress button
+Lesson
+    Model
+        Page
+            IsComplete
+            Question
+                Question Text
+                Answers
+                Correct Answer
+        Current Page
+        Total Number of Pages
+        AllPagesComplete
+    Quiz Bar
+        Page Number Header
+            - Page Number
+            - Lesson title
+        Multiple Choice Question
+        Text
+        Next Page Button
+        Take Test Button (final page)
+            - Only allowed if all quiz pages are completed
+    Slides
+    Bottom Bar
+        - Progress Bar
+        - Number of questions complete
+        - Percent complete
+        - Clear progress button
+        - Clear progress confirmation modal
+        - Back to lessons button
+Test
+    Model
+        Question
+            Question Text
+            Answers
+            Correct Answer
+        IsComplete
+        NumberCorrect
+    Multiple Choice Question
+    Submit Button
+        - Only lets you click it all questions are answered
+    - Only lets you take it if associated lesson quiz is complete
+    - Once submitted tells you which answeres are wrong
+    Review screen
+        - Tells you what answers were wrong
+        - Tells you percent correct
+        Re-Take Test Button / Back to Lessons button

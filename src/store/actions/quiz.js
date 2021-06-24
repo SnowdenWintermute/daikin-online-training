@@ -3,7 +3,7 @@ import { SET_TOTAL_NUM_PAGES } from "./types";
 import { SET_ANSWER_TO_QUESTION } from "./types";
 
 export const setAnswerToQuestion =
-  ({ lesson, id, currSelectedIndex, value, correctAnswerIndex, page }) =>
+  ({ lesson, id, currSelectedIndex, value, correctAnswerIndex }) =>
   (dispatch) => {
     dispatch({
       type: SET_ANSWER_TO_QUESTION,

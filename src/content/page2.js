@@ -12,19 +12,15 @@ const page1 = [
     answers: [
       {
         value: "Butts",
-        label: "Butts",
       },
       {
         value: "Not butts",
-        label: "Not butts",
       },
       {
         value: "Maybe butts",
-        label: "Maybe butts",
       },
       {
         value: "Dicks",
-        label: "Dicks",
       },
     ],
   },

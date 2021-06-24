@@ -10,7 +10,7 @@ import setNumQuestionsCorrect from "./setNumQuestionsCorrect";
 import setPageCompletion from "./setPageCompletion";
 import setQuizCompletion from "./setQuizCompletion";
 
-import stateWithNewAnswer from "./stateWithNewAnswer.js";
+import stateWithNewAnswer from "../common/stateWithNewAnswer.js";
 
 const initialState = JSON.parse(localStorage.getItem("quiz")) || {};
 

@@ -14,6 +14,7 @@ import { setCurrentLesson } from "../../store/actions/lessons.js";
 const Quiz = ({ match }) => {
   const dispatch = useDispatch();
   const lesson = match.params.lesson.toLowerCase() || null;
+  const [loading, setLoading] = useState(true);
   const [lessonQuiz, setLessonQuiz] = useState([]);
   const [lessonInfo, setLessonInfo] = useState([]);
 
@@ -30,9 +31,11 @@ const Quiz = ({ match }) => {
         break;
       default:
     }
+    setLoading(false);
   }, [dispatch, lesson]);
 
-  if (!lessonQuiz.length > 0) return <h1 style={{ padding: "20px" }}>No lesson found</h1>;
+  if (!lessonQuiz.length > 0 && !loading)
+    return <h1 style={{ padding: "20px" }}>No lesson found</h1>;
   return (
     <>
       <Sidebar>

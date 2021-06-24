@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import MultipleChoice from "../../components/questions/MultipleChoice/MultipleChoice";
@@ -8,11 +8,13 @@ import { QUESTION } from "../../content/types";
 import "./quizPage.css";
 import { setPageNumber } from "../../store/actions/quiz";
 import TextBox from "../../components/text/TextBox";
+import { setAnswerToQuestion } from "../../store/actions/quiz";
 
 const QuizPage = ({ content }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const lesson = useSelector((state) => state.lessons?.currentLesson);
+  const quiz = useSelector((state) => state.quiz[lesson]);
   const currentPage = useSelector((state) => state.quiz[lesson]?.pageNumber);
   const numTotalPages = useSelector((state) => state.quiz[lesson]?.numTotalPages);
   const allQuestionsCorrect = useSelector((state) => {
@@ -29,6 +31,23 @@ const QuizPage = ({ content }) => {
     if (currentPage > 1) dispatch(setPageNumber({ currPageNum: currentPage - 1, lesson }));
   };
 
+  const handleChange = (event, question, id) => {
+    let newSelectedIndex;
+    question.answers.forEach((answer, i) => {
+      if (answer.value === event.target.value) newSelectedIndex = i;
+    });
+    dispatch(
+      setAnswerToQuestion({
+        lesson,
+        id,
+        currSelectedIndex: newSelectedIndex,
+        value: event.target.value,
+        correctAnswerIndex: question.correctAnswerIndex,
+        page: question.page,
+      })
+    );
+  };
+
   return (
     <div>
       <h2 className="quiz-page-header-text">
@@ -37,7 +56,16 @@ const QuizPage = ({ content }) => {
       </h2>
       {content.map((item) => {
         if (item.type === QUESTION) {
-          return <MultipleChoice question={item} id={item.id} key={item.id} />;
+          return (
+            <MultipleChoice
+              question={item}
+              id={item.id}
+              key={item.id}
+              handleChange={handleChange}
+              value={quiz?.answers && quiz?.answers[item.id]?.value}
+              showCorrect={quiz?.answers && quiz?.answers[item.id]?.isCorrect}
+            />
+          );
         } else return <TextBox key={item.id} text={item.text} />;
       })}
       <div className="bottom-buttons-holder">
