@@ -10,6 +10,7 @@ import page2 from "../../content/page2";
 import info1 from "../../content/info1";
 import info2 from "../../content/info2";
 import { setCurrentLesson } from "../../store/actions/lessons.js";
+import QuizContainer from "../../components/layout/QuizContainer/QuizContainer.js";
 
 const Quiz = ({ match }) => {
   const dispatch = useDispatch();
