@@ -25,6 +25,7 @@ const QuizPage = ({ content }) => {
   const handleNextClick = () => {
     if (currentPage < numTotalPages) {
       dispatch(setPageNumber({ currPageNum: currentPage + 1, lesson }));
+      window.scrollTo(0, 0);
     } else if (currentPage === numTotalPages) history.push(`/test/${lesson}`);
   };
   const handlePrevClick = () => {

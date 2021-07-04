@@ -12,7 +12,19 @@
   /* background-color: rgba(100, 200, 110, 0.5); */
   background-color: var(--green);
   /* color: white; */
+  padding-right: 15px;
+}
+.MuiFormControlLabel-label.Mui-disabled {
+  color: black !important;
+}
+.selected-incorrect-answer {
+  background-color: var(--red);
+  color: white !important;
+  padding-right: 15px;
+}
+.selected-incorrect-answer .MuiFormControlLabel-label.Mui-disabled {
+  color: white !important;
 }
 .radio-label {
-  color: black !important;
+  color: black;
 }

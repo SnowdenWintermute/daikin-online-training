@@ -1,4 +1,9 @@
-import { CLEAR_TEST_PROGRESS, SET_ANSWER_TO_TEST_QUESTION, SET_TOTAL_NUM_QUESTIONS } from "./types";
+import {
+  CLEAR_TEST_PROGRESS,
+  SET_ANSWER_TO_TEST_QUESTION,
+  SET_TOTAL_NUM_QUESTIONS,
+  SET_REVIEWING_TEST_ANSWERS,
+} from "./types";
 
 export const setAnswerToTestQuestion =
   ({ lesson, id, currSelectedIndex, value, correctAnswerIndex }) =>
@@ -17,4 +22,8 @@ export const setTotalNumQuestions =
 
 export const clearTestProgress = (lesson) => (dispatch) => {
   dispatch({ type: CLEAR_TEST_PROGRESS, payload: lesson });
+};
+
+export const setReviewingTestAnswers = (payload) => (dispatch) => {
+  dispatch({ type: SET_REVIEWING_TEST_ANSWERS, payload });
 };

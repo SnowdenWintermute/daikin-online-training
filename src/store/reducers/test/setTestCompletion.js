@@ -1,7 +1,5 @@
 export default function setTestCompletion(state, payload) {
-  // check if all questions are answered
-  console.log(state[payload.lesson].totalNumQuestions);
-  console.log(Object.keys(state[payload.lesson].answers).length);
+  if (!state) return;
   if (
     state[payload.lesson].totalNumQuestions === Object.keys(state[payload.lesson].answers).length
   ) {

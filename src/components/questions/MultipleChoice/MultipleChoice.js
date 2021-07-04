@@ -2,7 +2,15 @@ import React from "react";
 import "./multipleChoice.css";
 import { FormControl, RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
 
-const MultipleChoice = ({ question, id, value, showCorrect, handleChange }) => {
+const MultipleChoice = ({
+  question,
+  id,
+  value,
+  showCorrect,
+  showIncorrect,
+  handleChange,
+  disabled,
+}) => {
   return (
     <div className="question-box">
       <h2 className={showCorrect ? "correct-answer" : ""}>
@@ -13,21 +21,22 @@ const MultipleChoice = ({ question, id, value, showCorrect, handleChange }) => {
         <RadioGroup
           aria-label="gender"
           name="Answer"
-          value={value}
+          value={value || null}
           onChange={(event) => handleChange(event, question, id)}
         >
           {question.answers.map((answer, i) => {
+            let classname = "radio-label";
+            if (showCorrect && i === question.correctAnswerIndex)
+              classname = "selected-correct-answer";
+            else if (showIncorrect && value === answer.value)
+              classname = "selected-incorrect-answer";
             return (
               <FormControlLabel
                 value={answer.value}
                 key={i}
-                control={<Radio color="default" />}
+                control={<Radio color="default" disabled={disabled} />}
                 label={answer.value}
-                className={
-                  showCorrect && i === question.correctAnswerIndex
-                    ? "selected-correct-answer"
-                    : "radio-label"
-                }
+                className={classname}
               />
             );
           })}
