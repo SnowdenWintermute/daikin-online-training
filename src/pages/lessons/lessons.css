@@ -9,6 +9,10 @@
   align-items: center;
   border-bottom: 3px solid var(--blue);
 }
+.edit-name-link {
+  text-decoration: none;
+  padding: 20px;
+}
 .lesson-header-text {
 }
 .lessons-header-button {

@@ -1,13 +1,19 @@
 import React from "react";
-// import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import TopicCard from "./TopicCard";
 
 const Topics = () => {
   const topics = ["Chillers", "Heaters"];
-
+  const user = useSelector((state) => state.user);
   return (
     <div className="topics">
-      <h2 className="lessons-header">Choose a topic</h2>
+      <h2 className="lessons-header">Hello {user.firstName} - please choose a topic</h2>
+      <h3>
+        <Link to="/edit-name" className="edit-name-link">
+          Edit Name
+        </Link>
+      </h3>
       <div className="topics-holder">
         {topics.map((lesson, i) => (
           <TopicCard key={i} title={lesson} />

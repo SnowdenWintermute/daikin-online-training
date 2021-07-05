@@ -81,7 +81,7 @@ const Test = ({ match }) => {
       <h2>Test for lesson: {lesson}</h2>
       <h3>Quiz complete: {quizIsComplete.toString()}</h3>
       <div className="test-questions-holder">
-        {testContent &&
+        {testContent ? (
           testContent.map((item, i) => {
             item.id = i + 1;
             let showIncorrect = false;
@@ -112,7 +112,10 @@ const Test = ({ match }) => {
                 handleChange={handleChange}
               />
             );
-          })}
+          })
+        ) : (
+          <div>No test has been made for this topic yet</div>
+        )}
       </div>
       <button className="button" onClick={submitAnswers} disabled={!allQuestionsAnswered}>
         Submit Answers
@@ -124,7 +127,7 @@ const Test = ({ match }) => {
         open={testCompleteModalOpen}
         onClose={handleCloseModal}
         numQuestions={test?.totalNumQuestions}
-        numCorrect={test.numQuestionsCorrect}
+        numCorrect={test?.numQuestionsCorrect}
       />
     </div>
   );

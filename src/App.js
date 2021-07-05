@@ -6,17 +6,25 @@ import Test from "./pages/test/Test.js";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Lessons from "./pages/lessons/Lessons.js";
 import Topics from "./pages/lessons/Topics.js";
+import Register from "./pages/user/Register.js";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./css/toastify.css";
+import UserRoute from "./components/routes/UserRoute";
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
+        <ToastContainer transition={Slide} />
         <Router>
           <MainContaner>
-            <Route exact path="/quiz/:lesson" component={Quiz} />
-            <Route exact path="/" component={Topics} />
-            <Route exact path="/lessons/:topic" component={Lessons} />
-            <Route exact path="/test/:lesson" component={Test} />
+            <UserRoute exact path="/quiz/:lesson" component={Quiz} />
+            <UserRoute exact path="/" component={Topics} />
+            <Route exact path="/edit-name" component={Register} />
+            <UserRoute exact path="/lessons" component={Topics} />
+            <UserRoute exact path="/lessons/:topic" component={Lessons} />
+            <UserRoute exact path="/test/:lesson" component={Test} />
           </MainContaner>
         </Router>
       </div>
