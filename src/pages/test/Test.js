@@ -12,6 +12,7 @@ import {
 } from "../../store/actions/test.js";
 import "./test.css";
 import TestCompleteModal from "./TestCompleteModal.js";
+import Certificate from "./Certificate";
 
 const Test = ({ match }) => {
   const history = useHistory();
@@ -24,6 +25,9 @@ const Test = ({ match }) => {
   const allQuestionsAnswered = test?.isComplete;
   const reviewingAnswers = test?.reviewingTestAnswers;
   const [testCompleteModalOpen, setTestCompleteModalOpen] = useState(false);
+  const [certClamable, setCertClaimable] = useState(false);
+  const [showCert, setShowCert] = useState(false);
+  const percentCorrect = Math.floor((test?.numQuestionsCorrect / test?.totalNumQuestions) * 100);
 
   useEffect(() => {
     if (!quiz || !quiz.isComplete) history.push(`/lessons/${lesson}`);
@@ -59,6 +63,12 @@ const Test = ({ match }) => {
     );
   };
 
+  useEffect(() => {
+    console.log(percentCorrect);
+    if (percentCorrect > 70) setCertClaimable(true);
+    else setCertClaimable(false);
+  }, [test?.numQuestionsCorrect, test?.totalNumQuestions, percentCorrect]);
+
   const submitAnswers = () => {
     dispatch(setReviewingTestAnswers({ lesson, reviewingTestAnswers: true }));
     window.scrollTo(0, 0);
@@ -76,10 +86,33 @@ const Test = ({ match }) => {
     dispatch(setReviewingTestAnswers({ lesson, reviewingTestAnswers: false }));
   };
 
+  const handleClaimCert = () => {
+    setShowCert(true);
+  };
+  const handleHideCert = () => {
+    setShowCert(false);
+  };
+
+  if (showCert) return <Certificate lesson={lesson} />;
+
   return (
     <div className="test">
       <h2>Test for lesson: {lesson}</h2>
       <h3>Quiz complete: {quizIsComplete.toString()}</h3>
+      {certClamable && reviewingAnswers ? (
+        <button className="button" onClick={handleClaimCert}>
+          Claim Certificate
+        </button>
+      ) : reviewingAnswers ? (
+        <span>
+          Scored {percentCorrect}% (must get 70% for certificate), retake?{" "}
+          <button className="button" onClick={clearTest}>
+            Clear All Answers
+          </button>
+        </span>
+      ) : (
+        <span>Score over 70% to obtain a certificate of completion</span>
+      )}
       <div className="test-questions-holder">
         {testContent ? (
           testContent.map((item, i) => {
