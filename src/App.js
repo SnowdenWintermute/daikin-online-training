@@ -11,6 +11,7 @@ import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./css/toastify.css";
 import UserRoute from "./components/routes/UserRoute";
+import Certificate from "./pages/test/Certificate.js";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <UserRoute exact path="/lessons" component={Topics} />
             <UserRoute exact path="/lessons/:topic" component={Lessons} />
             <UserRoute exact path="/test/:lesson" component={Test} />
+            <UserRoute exact path="/certificate/:lesson" component={Certificate} />
           </MainContaner>
         </Router>
       </div>

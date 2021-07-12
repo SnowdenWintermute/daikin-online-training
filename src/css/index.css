@@ -17,3 +17,11 @@ body {
 .Toastify__toast--success {
   background-color: var(--green) !important;
 }
+.link-button {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-right: 10px;
+  padding-left: 10px;
+}

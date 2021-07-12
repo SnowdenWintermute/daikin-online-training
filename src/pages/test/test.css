@@ -5,3 +5,15 @@
   padding: 10px;
   /* background-color: blue; */
 }
+.test-title {
+  text-transform: capitalize;
+  border-bottom: 3px solid var(--green);
+}
+.test-description {
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+.test-questions-holder {
+  width: 100%;
+}

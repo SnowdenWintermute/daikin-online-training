@@ -13,13 +13,13 @@ import {
 import "./test.css";
 import TestCompleteModal from "./TestCompleteModal.js";
 import Certificate from "./Certificate";
+import TestHeader from "./TestHeader";
 
 const Test = ({ match }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const lesson = match.params.lesson.toLowerCase() || null;
   const quiz = useSelector((state) => state.quiz[lesson]);
-  const quizIsComplete = useSelector((state) => state.quiz[lesson]?.isComplete);
   const test = useSelector((state) => state.test[lesson]);
   const [testContent, setTestContent] = useState(null);
   const allQuestionsAnswered = test?.isComplete;
@@ -30,7 +30,7 @@ const Test = ({ match }) => {
   const percentCorrect = Math.floor((test?.numQuestionsCorrect / test?.totalNumQuestions) * 100);
 
   useEffect(() => {
-    if (!quiz || !quiz.isComplete) history.push(`/lessons/${lesson}`);
+    if (!quiz || !quiz?.isComplete) history.push(`/lessons/${lesson}`);
   }, [history, lesson, quiz]);
 
   useEffect(() => {
@@ -64,7 +64,6 @@ const Test = ({ match }) => {
   };
 
   useEffect(() => {
-    console.log(percentCorrect);
     if (percentCorrect > 70) setCertClaimable(true);
     else setCertClaimable(false);
   }, [test?.numQuestionsCorrect, test?.totalNumQuestions, percentCorrect]);
@@ -81,38 +80,24 @@ const Test = ({ match }) => {
   };
 
   const clearTest = () => {
+    window.scrollTo(0, 0);
     dispatch(clearTestProgress(lesson));
     dispatch(setTotalNumQuestions({ lesson, testContent }));
     dispatch(setReviewingTestAnswers({ lesson, reviewingTestAnswers: false }));
-  };
-
-  const handleClaimCert = () => {
-    setShowCert(true);
-  };
-  const handleHideCert = () => {
-    setShowCert(false);
   };
 
   if (showCert) return <Certificate lesson={lesson} />;
 
   return (
     <div className="test">
-      <h2>Test for lesson: {lesson}</h2>
-      <h3>Quiz complete: {quizIsComplete.toString()}</h3>
-      {certClamable && reviewingAnswers ? (
-        <button className="button" onClick={handleClaimCert}>
-          Claim Certificate
-        </button>
-      ) : reviewingAnswers ? (
-        <span>
-          Scored {percentCorrect}% (must get 70% for certificate), retake?{" "}
-          <button className="button" onClick={clearTest}>
-            Clear All Answers
-          </button>
-        </span>
-      ) : (
-        <span>Score over 70% to obtain a certificate of completion</span>
-      )}
+      <h2 className="test-title">{lesson} Test</h2>
+      <TestHeader
+        certClamable={certClamable}
+        reviewingAnswers={reviewingAnswers}
+        lesson={lesson}
+        percentCorrect={percentCorrect}
+        clearTest={clearTest}
+      />
       <div className="test-questions-holder">
         {testContent ? (
           testContent.map((item, i) => {
@@ -150,12 +135,24 @@ const Test = ({ match }) => {
           <div>No test has been made for this topic yet</div>
         )}
       </div>
-      <button className="button" onClick={submitAnswers} disabled={!allQuestionsAnswered}>
-        Submit Answers
-      </button>
-      <button className="button" onClick={clearTest}>
-        Clear All Answers
-      </button>
+      {test?.isComplete && !reviewingAnswers ? (
+        <button className="button" onClick={submitAnswers} disabled={!allQuestionsAnswered}>
+          Submit Answers
+        </button>
+      ) : (
+        <>
+          <TestHeader
+            certClamable={certClamable}
+            reviewingAnswers={reviewingAnswers}
+            lesson={lesson}
+            percentCorrect={percentCorrect}
+            clearTest={clearTest}
+          />
+          <button className="button" onClick={clearTest}>
+            Clear All Answers
+          </button>
+        </>
+      )}
       <TestCompleteModal
         open={testCompleteModalOpen}
         onClose={handleCloseModal}
